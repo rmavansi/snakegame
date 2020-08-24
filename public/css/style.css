@@ -15,6 +15,10 @@ body{
   color: rgb(52, 165, 52);
 }
 
+button {
+  cursor: pointer;
+}
+
 #title, #snake {
   margin-bottom: 16px;
 }
@@ -28,10 +32,40 @@ body{
   background-color: red;
   padding: 16px 24px;
   border-radius: 16px;
-  margin-bottom: 32px;
+  margin: 16px 0 32px;
   visibility: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#gameOver:hover {
+  background-color: #6b0000;
 }
 
 #gameOver p {
   font-size: 16px;
+}
+
+#divDifficulty {
+  display: flex;
+}
+
+.btnDifficulty {
+  padding: 4px 16px;
+  margin-left: 4px;
+  border: 1px solid;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.btnDifficulty:hover {
+  background-color: #aba1a1;
+}
+
+#btnStart {
+  margin-top: 16px;
+}
+
+#difficulty{
+  margin-top: 16px;
 }

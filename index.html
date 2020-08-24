@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="snake.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1 id="title">SNAKE GAME!</h1>
-    <h1 id="gameOver"></h1>
+    <div id="divDifficulty">
+      <button id="btnEasy" class="btnDifficulty" type="button">Easy</button>
+      <button id="btnMedium" class="btnDifficulty" type="button">Medium</button>
+      <button id="btnHard" class="btnDifficulty" type="button">Hard</button>
+    </div>
+    <span id="difficulty">Difficulty: Easy</span>
+
+    <button id="btnStart" class="btnDifficulty" type="button">Start</button>
+    <div id="gameOver"></div>
     <canvas id="snake" width="512" height="512"></canvas>
     <h2>Score: <span id="score">0</span></h2>
 
     <h3>High Score: <span id="highScore"></span></h3>
+    <script type="module" defer src="script/snake.js"></script>
 </body>
 </html>
