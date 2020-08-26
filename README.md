@@ -1,4 +1,4 @@
-<h2 align="center"><strong>Snake Game</strong></h2>
+<h1 align="center"><strong>Snake Game</strong></h1>
 
 ## :bookmark_tabs: Table of contents
 
