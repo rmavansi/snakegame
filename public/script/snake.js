@@ -1,40 +1,38 @@
 import { moveSnake, updateDirection} from './movement.mjs';
 import { background, createSnake, drawFood, generateFood, foodPosition, checkBounds, checkIfHitBoxHardMode } from './field.mjs';
+import { chooseDifficulty, setSpeed } from './difficulty.mjs';
 
+// Canvas
 const canvas = document.getElementById("snake");
 const context = canvas.getContext("2d");
 
-let speed = 250;
 let game;
 let direction = "right";
+let diff;
+const box = 32;
 
+// Storage
 const score = document.getElementById("score");
 const highScore = document.getElementById("highScore");
-highScore.textContent = localStorage.getItem("highScore") | "0"
+highScore.textContent = localStorage.getItem("snakeGameHighScore") || "0";
 
+// Event press button
 document.addEventListener('keydown', () => direction = updateDirection(event, direction));
 
+const menu = document.getElementById("menu");
+
 const difficulty = document.getElementById("difficulty");
+difficulty.textContent = `Difficulty: ${sessionStorage.getItem("snakeGameDifficulty") || "Easy"}`;
 
-let df = "Easy";
-
-function choosedifficulty(btn) {
-  difficulty.textContent = `Difficulty: ${btn.innerText}`;
-  df = btn.innerText;
-  if(btn.innerText==="Easy") speed = 250;
-  if(btn.innerText==="Medium") speed = 150;
-  if(btn.innerText==="Hard") speed = 100;
-}
-
-// Choose difficulty
+// Choose difficulty buttons
 const btnEasy = document.getElementById("btnEasy");
-btnEasy.addEventListener('click', () => choosedifficulty(btnEasy));
+btnEasy.addEventListener('click', () => chooseDifficulty(btnEasy));
 
 const btnMedium = document.getElementById("btnMedium");
-btnMedium.addEventListener('click', () => choosedifficulty(btnMedium));
+btnMedium.addEventListener('click', () => chooseDifficulty(btnMedium));
 
 const btnHard = document.getElementById("btnHard");
-btnHard.addEventListener('click', () => choosedifficulty(btnHard));
+btnHard.addEventListener('click', () => chooseDifficulty(btnHard));
 
 // Page reload
 const gameOver = document.getElementById("gameOver");
@@ -45,22 +43,23 @@ gameOver.addEventListener('click', () => {
 // Start game
 const start = document.getElementById("btnStart");
 start.addEventListener('click', () => {
-  game = setInterval(init, speed);
+  menu.style.visibility = "hidden";
+  diff = sessionStorage.getItem('snakeGameDifficulty') || "Easy";
+  game = setInterval(init, setSpeed(diff));
 });
 
-const box = 32;
 let snake = [];
 let points = 0;
-
-generateFood(box);
 
 snake[0] ={
   x: 1 * box,
   y: 1 * box
 }
 
+generateFood(box);
+
 function gameOverAction() {
-  if(parseInt(highScore.textContent, 10) < parseInt(score.textContent, 10)) localStorage.setItem('highScore', points)
+  if(parseInt(highScore.textContent, 10) < parseInt(score.textContent, 10)) localStorage.setItem('snakeGameHighScore', points)
   clearInterval(game);
   gameOver.textContent = "GAME OVER!";
   gameOver.innerHTML += '<p>Press to reload</p>';
@@ -77,15 +76,13 @@ function init() {
   }
 
   // check hitbox
-  if(df==="Hard") {
+  if(diff==="Hard") {
     if(checkIfHitBoxHardMode(snake[0], box)) gameOverAction();
   }
 
-
-  background(context, box, df);
+  background(context, box, diff);
   createSnake(context, snake, box);
   drawFood(context, box);
-  // drawCenterCollision();
 
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;

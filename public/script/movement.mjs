@@ -6,6 +6,7 @@ export function moveSnake(direction, box, snakeX, snakeY) {
 }
 
 export function updateDirection(event, direction) {
+  event.preventDefault();
   if(event.keyCode == 37 && direction != "right") return direction="left";
   if(event.keyCode == 38 && direction != "down") return direction="up";
   if(event.keyCode == 39 && direction != "left") return direction="right";
